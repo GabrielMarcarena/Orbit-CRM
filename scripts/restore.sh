@@ -17,10 +17,13 @@ C=orbit-scratch-restore
 docker rm -f $C >/dev/null 2>&1 || true
 docker run -d --name $C -e POSTGRES_PASSWORD=scratch postgres:16-alpine@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea >/dev/null
 trap 'docker rm -f $C >/dev/null 2>&1' EXIT
-until docker exec $C pg_isready -U postgres >/dev/null 2>&1; do sleep 1; done
-sleep 2
+for i in $(seq 1 60); do docker exec $C pg_isready -U postgres >/dev/null 2>&1 && break; sleep 1; done
+docker exec $C pg_isready -U postgres >/dev/null || { echo "scratch postgres did not start" >&2; exit 1; }
+sleep 3  # the postgres image restarts once after its init phase
+# roles referenced by the dumps' grants
+for role in twenty n8n orbit_ledger; do docker exec $C psql -U postgres -c "CREATE ROLE \"$role\"" >/dev/null; done
 for db in twenty n8n orbit_ledger; do
   docker exec $C psql -U postgres -c "CREATE DATABASE \"$db\"" >/dev/null
-  docker exec -i $C pg_restore -U postgres --no-owner --role=postgres -d "$db" < "$B/$db.dump"
+  docker exec -i $C pg_restore -U postgres --no-owner -d "$db" < "$B/$db.dump"
   counts "docker exec -i $C psql -U postgres" "$db"
 done

@@ -5,6 +5,10 @@ cd "$(dirname "$0")/.."
 DC="docker compose -f deploy/compose.yml --env-file deploy/.env --profile core --profile crm"
 PORT=$(grep -E '^ORBIT_HTTP_PORT=' deploy/.env | cut -d= -f2)
 fail=0
+# every service the stack defines must exist (a removed container would otherwise be invisible to `ps`)
+for svc in $($DC config --services); do
+  $DC ps -a --format '{{.Service}}' | grep -qx "$svc" || { echo "FAIL  $svc (container missing)"; fail=1; }
+done
 while IFS=$'\t' read -r svc state health; do
   if [ "$svc" = "twenty-worker" ]; then ok=$([ "$state" = running ] && echo 1 || echo 0)
   else ok=$([ "$health" = healthy ] && echo 1 || echo 0); fi

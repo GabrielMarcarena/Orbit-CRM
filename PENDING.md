@@ -1,12 +1,12 @@
-> **Milestone 1 (Foundation) DONE on branch m1-foundation, 2026-10-19.** See docs/M1_REPORT.md. Next: Milestone 2 (intake, no texts). Needs from owner: Semaphore sender name, review link, Messenger link, staff list, domain.
+> **Milestone 1 infrastructure built and verified on branch m1-foundation, 2026-10-19** (see docs/M1_REPORT.md; the Semaphore/Meta/Cal.com account setup is not started). Next: Milestone 2 (intake, no texts). Needs from owner: Semaphore sender name, review link, Messenger link, staff list, domain.
 
 > **UPDATE 2026-10-19: v1 scope replaced.** After brainstorming, v1 is the "lean core" in `docs/superpowers/specs/2026-10-19-orbit-v1-design.md`: Twenty + n8n + orbit_ledger + **Semaphore** SMS (Twilio does not work in the Philippines) + Messenger/IG as the chat channel + Cal.com cloud. Chatwoot, Mautic and Postiz are later phases. Read the spec first; the audit below is background and history.
 
 # Orbit — Pending Work (project paused 2026-10-19)
 
 ## Status
-- **Paused after Phase 0, the audit.** Nothing was built, deployed or configured, and no email or SMS was sent.
-- The upstream clones (`~/orbit-audit`) were deleted, and Docker Engine was uninstalled (the owner ran the commands).
+- (History) Paused after the Phase 0 audit; M1 has since been built, see the banner above. No email or SMS has ever been sent.
+- (History) Clones were deleted and Docker uninstalled at that pause; Docker is installed again and the clones were re-created.
 - The legacy app `../orbit-crm/` is untouched apart from a git safety snapshot: commit `f2daac5`, "Snapshot of legacy Orbit CRM (phase 17)".
 - To resume, paste `CLAUDE_PROMPT.md` into a new Claude Code session.
 

@@ -1,0 +1,48 @@
+# captured 2026-10-19T09:19:47Z
+ok    caddy
+ok    mailpit
+ok    n8n
+ok    postgres
+ok    redis
+ok    twenty-server
+ok    twenty-worker
+ok    route crm.localhost/healthz
+ok    route flows.localhost/healthz
+ok    route mail.localhost/
+exit 0
+--- n8n stopped:
+ok    caddy
+ok    mailpit
+FAIL  n8n (exited/)
+ok    postgres
+ok    redis
+ok    twenty-server
+ok    twenty-worker
+ok    route crm.localhost/healthz
+FAIL  route flows.localhost/healthz (502)
+ok    route mail.localhost/
+exit 1
+--- n8n stopped + worker removed:
+FAIL  twenty-worker (container missing)
+ok    caddy
+ok    mailpit
+FAIL  n8n (exited/)
+ok    postgres
+ok    redis
+ok    twenty-server
+ok    route crm.localhost/healthz
+FAIL  route flows.localhost/healthz (502)
+ok    route mail.localhost/
+exit 1
+--- recovered:
+ok    caddy
+ok    mailpit
+ok    n8n
+ok    postgres
+ok    redis
+ok    twenty-server
+ok    twenty-worker
+ok    route crm.localhost/healthz
+ok    route flows.localhost/healthz
+ok    route mail.localhost/
+exit 0

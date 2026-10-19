@@ -52,10 +52,10 @@ The VPS is a 4–8 GB server in Singapore (about $10–25 a month). Development 
 | Table | What it holds |
 |---|---|
 | `processed_events` | `(source, event_id)` unique; webhook dedupe |
-| `id_map` | Twenty person ID ↔ Meta PSID / lead ID ↔ Cal.com attendee |
+| `id_map` | Many external IDs per Twenty person: rows of `(twenty_person_id, kind, external_id)`, kind = meta_psid / meta_lead / calcom_attendee; `(kind, external_id)` is unique |
 | `consent` | Phone, status (opted_in / opted_out), source, timestamp |
-| `outbound_messages` | Unique `idem_key` (automation, opportunity, step, due_at), phone, body, due_at, status (scheduled / skipped / sent / delivered / failed / cancelled), Semaphore message ID, attempts, last_error |
-| `automation_switches` | Automation name, mode (off / test / live), changed_by, changed_at, checklist_passed_at |
+| `outbound_messages` | Unique `idem_key`; also `automation`, `opportunity_id`, `step` columns, unique among active rows (scheduled / sent / delivered), so a rescheduled message must update or replace the old row, never add a second one; phone, body, due_at, status (scheduled / skipped / sent / delivered / failed / cancelled), Semaphore message ID, attempts, last_error |
+| `automation_switches` | Automation name, mode (off / test / live), changed_by (required for any mode other than off), changed_at (set automatically on every mode change), checklist_passed_at |
 | `test_numbers` | The allow-list used in test mode |
 | `dead_letter` | Failed items with their payload and error, and a `resolved_at` |
 | `alerts` | Severity, message, the channels it was sent to, and a timestamp |

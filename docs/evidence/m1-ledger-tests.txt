@@ -1,0 +1,37 @@
+# captured 2026-10-19T09:19:45Z
+NOTICE:  relation "schema_migrations" already exists, skipping
+BEGIN
+INSERT 0 1
+DO
+INSERT 0 1
+DO
+DO
+UPDATE 1
+INSERT 0 1
+DO
+DO
+INSERT 0 1
+DO
+INSERT 0 1
+DO
+DO
+INSERT 0 3
+DO
+ROLLBACK
+BEGIN
+SET
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ count 
+-------
+     0
+(1 row)
+
+ROLLBACK
+       result        
+---------------------
+ LEDGER TESTS PASSED
+(1 row)
+
+exit 0

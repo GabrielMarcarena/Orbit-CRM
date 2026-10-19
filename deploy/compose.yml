@@ -86,7 +86,7 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:80 >/dev/null 2>&1 || [ $$? -eq 1 ] || exit 1"]
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 80"]
       interval: 10s
       timeout: 5s
       retries: 10

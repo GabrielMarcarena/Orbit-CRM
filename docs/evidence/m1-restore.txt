@@ -1,0 +1,3 @@
+# captured 2026-10-19T09:20:18Z backup=backups/20261019T092015Z
+live tables: 238  restored tables: 238
+ROW COUNTS IDENTICAL

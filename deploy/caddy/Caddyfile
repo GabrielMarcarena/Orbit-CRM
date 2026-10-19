@@ -1,0 +1,15 @@
+{
+	auto_https off
+}
+
+http://crm.localhost:80 {
+	reverse_proxy twenty-server:3000
+}
+
+http://flows.localhost:80 {
+	reverse_proxy n8n:5678
+}
+
+http://mail.localhost:80 {
+	reverse_proxy mailpit:8025
+}

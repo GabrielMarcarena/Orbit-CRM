@@ -10,7 +10,7 @@ I'm building **Orbit**, my own GoHighLevel-style platform: CRM, email automation
 - It's for **my own business only** for now. Clients may come later, and that requires the n8n license and legal review gate described in `PENDING.md`.
 - `../orbit-crm/` is my older, AI-built Supabase CRM. It is **frozen as a reference: never modify it.** Its git snapshot is commit `f2daac5`. You may read it for ideas (idempotency, consent, quiet hours, webhook allow-list).
 
-**Current state:** the design is approved and committed (`789c779`). Nothing is built yet. The upstream clones were deleted and Docker may be uninstalled, so check before assuming.
+**Current state:** the design is approved and Milestone 1 (Foundation) is built on branch `m1-foundation` (see `docs/M1_REPORT.md`). Next is Milestone 2. The upstream clones were deleted and Docker may be uninstalled, so check before assuming.
 
 **Start with Milestone 1 of the spec (Foundation), via the writing-plans skill if no implementation plan exists yet. First:**
 1. Check `git status` and what's on disk, and whether Docker is installed.

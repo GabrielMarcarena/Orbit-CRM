@@ -1,0 +1,9 @@
+# Narrow allowlist: .env.example holds only empty placeholders; the generic-api-key rule
+# false-positives on "NAME=" followed by the next line's variable name.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "empty placeholders in deploy/.env.example"
+paths = ['''deploy/\.env\.example$''']
+rules = ["generic-api-key"]

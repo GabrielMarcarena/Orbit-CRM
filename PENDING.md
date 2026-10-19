@@ -1,3 +1,5 @@
+> **Milestone 1 (Foundation) DONE on branch m1-foundation, 2026-10-19.** See docs/M1_REPORT.md. Next: Milestone 2 (intake, no texts). Needs from owner: Semaphore sender name, review link, Messenger link, staff list, domain.
+
 > **UPDATE 2026-10-19: v1 scope replaced.** After brainstorming, v1 is the "lean core" in `docs/superpowers/specs/2026-10-19-orbit-v1-design.md`: Twenty + n8n + orbit_ledger + **Semaphore** SMS (Twilio does not work in the Philippines) + Messenger/IG as the chat channel + Cal.com cloud. Chatwoot, Mautic and Postiz are later phases. Read the spec first; the audit below is background and history.
 
 # Orbit — Pending Work (project paused 2026-10-19)

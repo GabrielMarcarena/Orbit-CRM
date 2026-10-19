@@ -1,0 +1,32 @@
+# Prompt to resume Orbit (paste everything below into a new Claude Code session opened in `~/orbit-crm-new-phase/Orbit .2`)
+
+---
+
+I'm building **Orbit**, my own GoHighLevel-style platform: CRM, email automation, SMS, social media scheduling, a shared customer inbox, workflow automation, and an Orbit-branded dashboard. I'm not an experienced developer, so explain decisions in plain language and recommend one option rather than listing many.
+
+**Read `docs/superpowers/specs/2026-10-19-orbit-v1-design.md` first (the approved v1 design: Philippines, local service business, Semaphore SMS, Twenty + n8n), then `PENDING.md` for the audit background.** It holds the completed Phase 0 audit and the decisions I've already approved. Don't re-litigate those decisions unless you find a concrete problem:
+- **Twenty** is the CRM of record. **n8n** is the workflow engine. **Mautic** handles email, **Chatwoot** the inbox, and **Postiz** social (later). SMS goes through Twilio or Telnyx.
+- All of them run as **separate, unmodified official Docker images**, connected only through their APIs and signed webhooks. A small Orbit-owned Postgres DB, `orbit_ledger`, holds idempotency keys, ID mapping, consent, outbound messages and dead-letter records.
+- It's for **my own business only** for now. Clients may come later, and that requires the n8n license and legal review gate described in `PENDING.md`.
+- `../orbit-crm/` is my older, AI-built Supabase CRM. It is **frozen as a reference: never modify it.** Its git snapshot is commit `f2daac5`. You may read it for ideas (idempotency, consent, quiet hours, webhook allow-list).
+
+**Current state:** the project was paused on 2026-10-19 after Phase 0. The upstream clones were deleted and Docker was uninstalled. This folder contains only `PENDING.md` and this prompt, and it is not a git repo yet.
+
+**Start with Milestone 1 of the spec (Foundation), via the writing-plans skill if no implementation plan exists yet. First:**
+1. Check `git status` and what's on disk.
+2. `git init` this folder.
+3. Re-clone the pinned upstreams shallowly into `~/orbit-audit/upstream/`. That path is outside this repo; never commit it.
+4. Check for anything newer than the pins and verify that the Docker image tags exist.
+5. Ask me where to host (this WSL machine has about 7 GB RAM, or a VPS) before installing Docker.
+6. Then propose Phase 1 and **wait for my approval**.
+
+**Rules you must follow:**
+- Check `git status` before changes. Keep each phase focused, and never use destructive git commands or delete databases or files without my explicit approval.
+- Pin exact versions and never use `:latest`. Upgrade one service at a time.
+- Never write directly to another app's database.
+- No real email or SMS to real recipients. Keep `ORBIT_SEND_MODE=test` until I approve going live.
+- Never put secrets in git, the frontend or logs. Keep `N8N_BLOCK_ENV_ACCESS_IN_NODE=true`.
+- Verify webhook signatures (Twenty, Chatwoot, Mautic). Never trust Postiz webhooks: poll its API for status.
+- Don't remove license, copyright or attribution notices, and don't copy enterprise-licensed code (Twenty `@license Enterprise` files, n8n `.ee`, Chatwoot `enterprise/`).
+- Don't claim something works unless you ran it. A successful API call doesn't mean a message was delivered or a post was published.
+- After each phase, report: what was done, files changed, commands run, tests that actually passed or failed, what is still unconfigured, risks and license notes, and what needs my approval next. Then stop and wait.

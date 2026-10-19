@@ -60,6 +60,13 @@ The VPS is a 4–8 GB server in Singapore (about $10–25 a month). Development 
 | `dead_letter` | Failed items with their payload and error, and a `resolved_at` |
 | `alerts` | Severity, message, the channels it was sent to, and a timestamp |
 
+## 4a. Builder's Gym adaptation (2026-10-19, owner's defaults; editable in Twenty)
+- **Business:** Builder's Gym, La Trinidad, Benguet. Programs: General Gym & Fitness, Boxing, MMA, BJJ, Arm Wrestling, Zumba, Yoga/Pilates, Circuit Training.
+- **Pipeline stages replace the generic ones in section 4 and section 5:** New inquiry -> Contacted -> Trial or visit booked -> Joined -> Lost. Person field `program_of_interest` (the form's dropdown).
+- **Follow-up automations are re-derived for these stages in the Milestone 2/4 plans.** "Quote" automations are dropped; the review request is sent after Joined (or after the first month), and booking reminders apply to the trial or visit.
+- **Website form** (https://buider-gym-book.up.railway.app/contact, owner-controlled): fields are name, one "mobile number or email" box, program dropdown, optional message, and a hidden spam-trap. Orbit must detect phone vs email, and normalize 09xx to +639xx. The form has no consent checkbox, so SMS is blocked until one is added ("OK to text me about my inquiry"); leads are still created without it.
+- **Local-only stage:** Orbit runs on the owner's laptop, so the live site cannot reach it. Milestone 2 is built and tested with simulated form submissions; a tunnel or VPS is needed for real ones.
+
 ## 5. Lead flow
 **Intake.** The same n8n workflow handles every source:
 1. Verify the signature or token, then dedupe through `processed_events`.

@@ -5,20 +5,18 @@
 I'm building **Orbit**, my own GoHighLevel-style platform: CRM, email automation, SMS, social media scheduling, a shared customer inbox, workflow automation, and an Orbit-branded dashboard. I'm not an experienced developer, so explain decisions in plain language and recommend one option rather than listing many.
 
 **Read `docs/superpowers/specs/2026-10-19-orbit-v1-design.md` first (the approved v1 design: Philippines, local service business, Semaphore SMS, Twenty + n8n), then `PENDING.md` for the audit background.** It holds the completed Phase 0 audit and the decisions I've already approved. Don't re-litigate those decisions unless you find a concrete problem:
-- **Twenty** is the CRM of record. **n8n** is the workflow engine. **Mautic** handles email, **Chatwoot** the inbox, and **Postiz** social (later). SMS goes through Twilio or Telnyx.
-- All of them run as **separate, unmodified official Docker images**, connected only through their APIs and signed webhooks. A small Orbit-owned Postgres DB, `orbit_ledger`, holds idempotency keys, ID mapping, consent, outbound messages and dead-letter records.
+- **v1 scope:** **Twenty** is the CRM of record and **n8n** the workflow engine. **Semaphore** sends outgoing SMS (Twilio does not work in the Philippines). Messenger/Instagram is the two-way chat channel, and Cal.com cloud handles booking. Chatwoot, Mautic and Postiz are **later phases**, not v1.
+- The self-hosted pieces run as **separate, unmodified official Docker images**, connected only through their APIs and signed webhooks. A small Orbit-owned Postgres DB, `orbit_ledger`, holds idempotency keys, ID mapping, consent, outbound messages and dead-letter records.
 - It's for **my own business only** for now. Clients may come later, and that requires the n8n license and legal review gate described in `PENDING.md`.
 - `../orbit-crm/` is my older, AI-built Supabase CRM. It is **frozen as a reference: never modify it.** Its git snapshot is commit `f2daac5`. You may read it for ideas (idempotency, consent, quiet hours, webhook allow-list).
 
-**Current state:** the project was paused on 2026-10-19 after Phase 0. The upstream clones were deleted and Docker was uninstalled. This folder contains only `PENDING.md` and this prompt, and it is not a git repo yet.
+**Current state:** the design is approved and committed (`789c779`). Nothing is built yet. The upstream clones were deleted and Docker may be uninstalled, so check before assuming.
 
 **Start with Milestone 1 of the spec (Foundation), via the writing-plans skill if no implementation plan exists yet. First:**
-1. Check `git status` and what's on disk.
-2. `git init` this folder.
-3. Re-clone the pinned upstreams shallowly into `~/orbit-audit/upstream/`. That path is outside this repo; never commit it.
-4. Check for anything newer than the pins and verify that the Docker image tags exist.
-5. Ask me where to host (this WSL machine has about 7 GB RAM, or a VPS) before installing Docker.
-6. Then propose Phase 1 and **wait for my approval**.
+1. Check `git status` and what's on disk, and whether Docker is installed.
+2. Ask me for the open items in section 12 of the spec (sender name, review link, staff list, domain).
+3. Verify that the pinned Docker image tags for Twenty and n8n exist (no `:latest`).
+4. Write the implementation plan for Milestone 1, and **wait for my approval** before installing or building anything.
 
 **Rules you must follow:**
 - Check `git status` before changes. Keep each phase focused, and never use destructive git commands or delete databases or files without my explicit approval.
